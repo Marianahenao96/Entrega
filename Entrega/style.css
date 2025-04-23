@@ -1,0 +1,201 @@
+/* Reset general */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  body {
+    background-color: #f7f7f7;
+    color: #333;
+    line-height: 1.6;
+  }
+  
+  /* Secciones generales */
+  section, header {
+    padding: 60px 20px;
+    max-width: 1200px;
+    margin: auto;
+  }
+  
+  /* Encabezado */
+  header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #e8f1f8;
+    border-radius: 10px;
+    padding: 40px;
+    text-align: left;
+  }
+  
+  header h1 {
+    font-size: 2.5em;
+    color: #00557f;
+  }
+  
+  header p {
+   
+        font-size: 1.2em;
+        margin: 20px 0;
+        padding: 10px 15px;
+        color: #004a6f;
+        border-left: 5px solid #008cba;
+        border-radius: 5px;
+        max-width: 500px;
+        line-height: 1.6;
+      }
+      
+  
+  header button {
+    padding: 10px 20px;
+    background-color: #008cba;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  header button:hover {
+    background-color: #0073a1;
+  }
+  
+  header img {
+    max-width: 200px;
+    width: 100%;
+    margin-top: 20px;
+    border-radius: 8px;
+  }
+  
+  /* Servicios */
+  #servicios {
+    text-align: center;
+  }
+  
+  #servicios h2 {
+    font-size: 2em;
+    margin-bottom: 40px;
+    color: #00557f;
+  }
+  
+  #servicios div[class] {
+    display: inline-block;
+    width: 30%;
+    margin: 10px;
+    vertical-align: top;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  #servicios img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 15px;
+  }
+  
+  /* Sobre Nosotros */
+  #nosotros {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+  
+  #nosotros img {
+    max-width: 500px;
+    width: 100%;
+    border-radius: 10px;
+  }
+  
+  #nosotros p {
+    flex: 1;
+    font-size: 1em;
+    line-height: 1.6;
+    text-align: justify;
+  }
+  
+  /* Testimonios */
+  #testimonios {
+    text-align: center;
+  }
+  
+  #testimonios h2 {
+    margin-bottom: 40px;
+    color: #00557f;
+  }
+  
+  #testimonios blockquote {
+    margin: 20px auto;
+    max-width: 600px;
+    font-style: italic;
+    background-color: #f0f8ff;
+    padding: 20px;
+    border-left: 5px solid #008cba;
+    border-radius: 5px;
+  }
+  
+  #testimonios footer {
+    margin-top: 10px;
+    text-align: right;
+    font-weight: bold;
+  }
+  
+  /* Contacto */
+  #contacto {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    align-items: flex-start;
+  }
+  
+  #contacto form {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 500px;
+  }
+  
+  #contacto input, #contacto textarea {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  #contacto button {
+    background-color: #008cba;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  #contacto img {
+    max-width: 400px;
+    width: 100%;
+    border-radius: 10px;
+  }
+  
+  /* Responsivo */
+  @media (max-width: 768px) {
+    header, #nosotros, #contacto {
+      flex-direction: column;
+      text-align: center;
+    }
+  
+    #servicios div[class] {
+      width: 100%;
+    }
+  
+    #contacto form, #contacto img {
+      width: 100%;
+    }
+  }
+  
