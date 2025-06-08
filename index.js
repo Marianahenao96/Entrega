@@ -1,37 +1,92 @@
-// SIMULADOR DE CITA ODONTOLÓGICA EN DENTISUR
+// Simular fetch de servicios
+function fakeFetchServicios() {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve([
+        "Consulta odontológica general",
+        "Limpieza dental",
+        "Ortodoncia",
+        "Blanqueamiento dental",
+        "Extracción de muelas"
+      ]);
+    }, 300);
+  });
+}
 
-// Constante servicios disponibles 
-const servicios = [
-    "Implantología Oral",
-    "Rehabilitación Oral",
-    "Ortodoncia"
-  ];
-  
-  // Solicita el nombre del usuario
-  let nombre = prompt("¡Hola! Bienvenido a DENTISUR. ¿Cuál es tu nombre?");
-  
-  console.log("Nombre del usuario:", nombre);
-  
-  // Muestra los servicios disponibles
-  let mensajeServicios = "Selecciona el número del servicio que deseas:\n";
-  for (let i = 0; i < servicios.length; i++) {
-    mensajeServicios += `${i + 1}. ${servicios[i]}\n`;
+document.addEventListener("DOMContentLoaded", () => {
+  const selectServicio = document.getElementById("servicio");
+  const formulario = document.getElementById("formulario-cita");
+  const citaGuardadaDiv = document.getElementById("cita-guardada");
+  const btnEliminarCita = document.getElementById("eliminar-cita");
+
+  // Cargar servicios en el <select>
+  fakeFetchServicios().then(servicios => {
+    servicios.forEach(servicio => {
+      const option = document.createElement("option");
+      option.value = servicio;
+      option.textContent = servicio;
+      selectServicio.appendChild(option);
+    });
+  });
+
+  // Mostrar cita guardada
+  const citaAlmacenada = localStorage.getItem("cita");
+  if (citaAlmacenada) {
+    mostrarCita(JSON.parse(citaAlmacenada));
   }
-  
-  // Elección del servicio
-  let seleccion = prompt(mensajeServicios);
-  let servicioElegido = servicios[parseInt(seleccion) - 1];
-  
-  console.log("Servicio seleccionado:", servicioElegido);
-  
-  // Confirmación para agendar cita
-  let confirmar = confirm(`¿Deseas agendar una cita para ${servicioElegido}, ${nombre}?`);
-  
-  if (confirmar) {
-    alert(`¡Perfecto, ${nombre}! Tu cita para ${servicioElegido} ha sido agendada.`);
-    console.log("Cita agendada con éxito.");
-  } else {
-    alert("No te preocupes, puedes agendar más tarde desde nuestra página.");
-    console.log("El usuario no agendó cita.");
+
+  // Manejar formulario
+  formulario.addEventListener("submit", e => {
+    e.preventDefault();
+
+    const nombre = document.getElementById("nombre").value;
+    const fecha = document.getElementById("fecha").value;
+    const hora = document.getElementById("hora").value;
+    const servicio = selectServicio.value;
+
+    const cita = { nombre, fecha, hora, servicio };
+    localStorage.setItem("cita", JSON.stringify(cita));
+    mostrarCita(cita);
+
+    Swal.fire({
+      icon: "success",
+      title: "Cita reservada",
+      text: "Tu cita fue guardada correctamente.",
+      confirmButtonColor: "#3085d6"
+    });
+
+    formulario.reset();
+  });
+
+  // Mostrar cita en pantalla
+  function mostrarCita(cita) {
+    citaGuardadaDiv.innerHTML = `
+      <p><strong>Nombre:</strong> ${cita.nombre}</p>
+      <p><strong>Fecha:</strong> ${cita.fecha}</p>
+      <p><strong>Hora:</strong> ${cita.hora}</p>
+      <p><strong>Servicio:</strong> ${cita.servicio}</p>
+    `;
+    btnEliminarCita.style.display = "inline-block";
   }
-  
+
+  // Eliminar cita
+  btnEliminarCita.addEventListener("click", () => {
+    Swal.fire({
+      title: "¿Eliminar cita?",
+      text: "Esta acción no se puede deshacer.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Sí, eliminar",
+      cancelButtonText: "Cancelar",
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6"
+    }).then(result => {
+      if (result.isConfirmed) {
+        localStorage.removeItem("cita");
+        citaGuardadaDiv.innerHTML = "";
+        btnEliminarCita.style.display = "none";
+        Swal.fire("Eliminada", "Tu cita ha sido eliminada.", "success");
+      }
+    });
+  });
+});
